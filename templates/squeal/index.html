@@ -1,0 +1,84 @@
+{% load humanize %}
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>{% block title %}Razpilnik! Squeal the skies.{% endblock %}</title>
+	<link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.8.1/build/reset-fonts-grids/reset-fonts-grids.css">
+	<link href="/static/style/main.css" rel="stylesheet" type="text/css" media="screen">
+</head>
+<body>
+<div id="nav">
+  <ul>
+    <li>Hello, annonymous bird</li>
+    <li><a href="">Register</a></li>
+    <li><a href="">Sign in</a></li>
+  </ul>
+</div>
+
+<div id="doc2">
+	<div id="hd">
+	  <a href="/">
+		<h1>Razpilnik!</h1>
+		<h2>squeal da roost!</h2>
+	  </a>
+	</div>
+{{ site.url }}
+	<div id="bd" class="yui-gc">
+	 {% block squeallist %}
+	 <div class="squeallist yui-u first">
+		 {% block squeallist-title %}<h3>Latest squeals:</h3>{% endblock %}
+		 <ol>
+		 {% for squeal in squeals %}
+			  <li class="squeal">
+				<div class="user">
+					<a href="{% url squeal.views.squealer squeal.author.username %}">
+					<img class="avatar" height="64px" width="64px" src="/static/images/rooster-small.png">
+					{{ squeal.author.username }}
+					</a>
+				</div>
+				<div class="content">
+				   <span>{{ squeal.content }}</span>
+				   <span class="date">{{ squeal.pub_date|naturalday }}</em>
+				</div>
+			 </li>
+		 {% endfor %}
+		 </ol>
+	 </div>
+	  {% endblock %}
+
+	  {% block userinfo %} {% endblock %}
+
+	  {% block userlist %}
+	 <div class="userlist yui-u">
+		<h3>Who's on Razpilnik!</h3>
+		 <ol>
+		 {% for squealer in squealers %}
+			  <li class="squealer">
+			      <a title="{{ squealer.user.username }}" href="{% url squeal.views.squealer squealer.user.username %}">
+			      <img class="avatar" height="32px" width="32px" src="/static/images/rooster-small.png">
+				{{ squeal.author.username }}
+			      </a>
+			 </li>
+		 {% endfor %}
+		 </ol>
+		 <blockquote>
+		  Chicken, roosters, pigeons, doves, hawks, kites, eagles, hummingbirds and the occasional mockingbird, penguins, owls, trogons and other strange birds.
+		  Winged critters.
+		  <strong>You find them all on Razpilnik!</strong>
+		 </blockquote>
+	  </div>
+	   {% endblock %}
+	  <div class="signup">
+		<h3>Squealing is bad-ass</h3>
+		<blockquote>
+		   Razpilnik is a rich source of instant cackle. Stay squealing. Keep others squealing. It's a whole roost.
+		   <br>
+		   <a class="button" href="">Join the Razpilnik! </a>
+		</blockquote>
+	  </div>
+	</div>
+</div>
+</body>
+</html>

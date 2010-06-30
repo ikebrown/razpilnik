@@ -1,0 +1,34 @@
+{% extends "squeal/index.html" %}
+
+{% block title %} {{ squealer.user.username }}'s squeals - {{ block.super }} {% endblock %}
+{% block squeallist-title %}<h3>{{ squealer.user.username }} says:</h3>{% endblock %}
+
+{% block userinfo %} 
+  <h3>{{ squealer.user.username }}</h3>
+  <img class="avatar" src="/static/images/rooster.png" >
+  <ul class="userinfo">
+    <li>Name: {{ squealer.user.first_name }} {{ squealer.user.last_name }} </li>
+    <li>Location: </li>
+    <li>Bio: </li>
+    <li>Website: </li>
+    <li>Followers: </li>
+    <li>Following: </li>
+    <li>Squeals: </li>
+
+  </ul>
+{% endblock %}
+
+{% block userlist %} {% endblock %}
+
+
+<h2>Followers</h2>
+<ol>
+{% for follower in squealer.followers.all %}
+ <li>{{ follower.user.username }}</li>
+{% endfor %}
+</ol>
+
+<h2>Following</h2>
+{% for following in squealer.following.all %}
+ <li>{{ following.user.username }}</li>
+{% endfor %}

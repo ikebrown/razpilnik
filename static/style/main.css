@@ -1,0 +1,157 @@
+/* @import url(http://fonts.googleapis.com/css?family=Reenie+Beanie); */
+body {
+	font-family: Verdana, sans;
+	font-size: .8em;
+	color: #222;
+	min-width: 80em;
+}
+
+strong {
+	font-weight: bold;
+}
+
+a {
+	color: #0E70B5;
+	text-decoration: none;
+	font-weight: bold;
+}
+
+a:hover {
+	color: #004170;
+}
+
+
+blockquote {
+	margin: 1em 0 1em 0;
+	font-size: 1.2em;
+	font-family: Georgia;
+	font-style: italic;
+	color: #333;
+}
+
+.button {
+	background: #004170;
+	color: #FFF;
+	display: inline-block;
+	margin: 1em auto;
+	display: inline-block;
+	clear: both;
+	padding: .2em .5em;
+	border: none;
+	font-size: 1.3em;
+	font-family: Reenie Beanie, Georgia, sans-serif;
+}
+
+.button:hover {
+	border: 1px solid #004170;
+	background: #FFF;
+}
+
+#nav {
+	background: #333;
+	color: #FFF;
+	text-align: right;
+	padding: .5em 2em .5em 0;
+	border-bottom: 1px solid #DDD;
+}
+
+#nav a {
+	color: #AAA;
+	padding-left: .5em;
+	border-left: 1px solid #555;
+}
+
+#nav li {
+     display: inline;
+     padding-left: 1em;
+}
+
+#hd {
+	margin-bottom: 6em;
+}
+
+#hd a {
+	color: #000;
+}
+
+#hd h1 {
+	font-size: 5em;
+	font-family: Reenie Beanie, Georgia, sans-serif;
+	-moz-transform: rotate(-5deg);
+	-webkit-transform: rotate(-5deg);
+}
+
+#hd h2 {
+	margin: -1em 0 0 3em;
+	-moz-transform: rotate(-5deg);
+	-webkit-transform: rotate(-5deg);
+}
+
+#bd { }
+
+.squeallist li {
+	border-left: 10px solid #DDD;
+}
+
+.squeallist li:hover, .squeallist li:first-child {
+	border-left: 10px solid #AAA;
+}
+
+.squeallist li {
+	display: block;
+	clear: both;
+	padding: 1em .5em;
+	height: 6.5em;
+	width: 40em;
+}
+
+h3 {
+	display: inline-block;
+	font-size: 1.3em;
+	font-family: Verdana, sans;
+	background: #000;
+	color: #FFF;
+	padding: .1em .2em;
+	margin: 0 0 .5em -2em;
+	-moz-transform: rotate(-5deg);
+	-webkit-transform: rotate(-5deg);
+}
+
+.squeal .user {
+	float: left;
+	width: 6em;
+	text-align: center;
+}
+
+.avatar {
+	display: block;
+	border-radius: 8px;
+	-moz-border-radius: 8px;
+	box-shadow: 1px 1px 1px #666;
+	-moz-box-shadow: 1px 1px 1px #666;
+	-webkit-box-shadow: 1px 1px 1px #666;
+}
+
+.squeal .content {
+	float: left;
+	width: 30em;
+	padding: .5em 1em 0 1em;
+}
+
+.squeal .date {
+	display: block;
+	color: #888;
+	
+}
+
+.userlist {
+
+}
+
+.userlist li, .userlist .user {
+	display: inline;
+}
+
+.signup {
+	padding-top: 5em;
+}
