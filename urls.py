@@ -4,8 +4,8 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
     (r'^admin/', include(admin.site.urls)),
-	 (r'^accounts/login/$', 'django.contrib.auth.views.login'),
-	 (r'^static/(?P<path>.*)', 'django.views.static.serve', {'document_root': '/home/sesarr/Work/razpilnik/static'}),
+    (r'^accounts/', include('registration.backends.default.urls')),
+    (r'^static/(?P<path>.*)', 'django.views.static.serve', {'document_root': '/home/sesarr/Work/razpilnik/static'}),
     (r'', include('razpilnik.squeal.urls'))
     # Example:
     # (r'^razpilnik/', include('razpilnik.foo.urls')),

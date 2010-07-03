@@ -1,0 +1,16 @@
+{% extends "registration/login.html" %}
+
+{% block body %}
+<div class="squeal-login">
+<h3>Bye !</h3>
+<div class="card">
+You have been logged out.
+<h4>You can try to:</h4>
+<ul class="actionlist">
+  <li><a href="{% url django.contrib.auth.views.login %}">Log in again</a> it is fun!</li>
+  <li>or</li>
+  <li><a href="{% url squeal.views.index %}">Go to the front page</a></li>
+</ul>
+</div>
+</div>
+{% endblock %}

@@ -4,6 +4,7 @@ admin.autodiscover()
 
 urlpatterns = patterns('razpilnik.squeal.views',
       (r'^$', 'index'),
-      (r'^(?P<squealer>\w+)/$', 'squealer')
+      (r'^home/$', 'home'),
+      (r'^(?P<squealer>\w+)/$', 'squealer'),
+      (r'^(?P<squealer>\w+)/settings/$', 'settings')
 )
-

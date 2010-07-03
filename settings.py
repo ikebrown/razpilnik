@@ -16,6 +16,12 @@ DATABASE_PASSWORD = ''         # Not used with sqlite3.
 DATABASE_HOST = ''             # Set to empty string for localhost. Not used with sqlite3.
 DATABASE_PORT = ''             # Set to empty string for default. Not used with sqlite3.
 
+EMAIL_HOST = "smtp.gmail.com"
+#EMAIL_PORT = 25
+EMAIL_HOST_USER = "therazpilnik"
+EMAIL_HOST_PASSWORD  = "thegreatrazpilnik"
+EMAIL_USE_TLS = True
+
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
 # although not all choices may be available on all operating systems.
@@ -61,6 +67,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware'
 )
 
 ROOT_URLCONF = 'razpilnik.urls'
@@ -73,7 +80,7 @@ TEMPLATE_DIRS = (
 )
 
 AUTH_PROFILE_MODULE = 'squeal.Squealer'
-
+ACCOUNT_ACTIVATION_DAYS = 7 # One-week activation window; you may, of course, use a different value.
 
 INSTALLED_APPS = (
     'django.contrib.auth',
@@ -82,5 +89,6 @@ INSTALLED_APPS = (
     'django.contrib.sites',
 	 'django.contrib.humanize',
 	 'django.contrib.admin',
-    'razpilnik.squeal'
+    'squeal',
+	 'registration'
 )

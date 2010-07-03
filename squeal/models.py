@@ -14,8 +14,10 @@ class Squeal(models.Model):
 
 class Squealer(models.Model):
  user = models.ForeignKey(User, related_name="users")
+ location = models.CharField(max_length=64, blank=True)
+ bio = models.CharField(max_length=140, blank=True)
+ website = models.URLField(max_length=64, blank=True)
  followers = models.ManyToManyField('self', blank=True)
  following = models.ManyToManyField('self', blank=True)
-
  def __unicode__(self):
   return (self.user.first_name or self.username) + " " + self.user.last_name

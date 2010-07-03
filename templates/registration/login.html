@@ -1,5 +1,16 @@
-<h1>Login</h1>
-<form method="post" action="">
+{% extends "squeal/index.html" %}
+{% block title %}Login - {{ block.super }}{% endblock %}
+
+{% block body %}
+<div class="squeal-login">
+<h3>Login</h3>
+<form class="card" method="post" action="?next={% url squeal.views.home %}">
+<ul class="actionlist">
+  <li>Not registered yet? <a href="{% url registration.views.register %}">GO REGISTER!</a></li>
+</ul>
+{% csrf_token %}
 {{ form.as_p }}
-<input type="Submit" value="login" />
+<input class="button" type="submit" value="login" />
 </form>
+</div>
+{% endblock %}

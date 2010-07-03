@@ -38,13 +38,14 @@ blockquote {
 	clear: both;
 	padding: .2em .5em;
 	border: none;
-	font-size: 1.3em;
+	font-size: 1.6em;
 	font-family: Reenie Beanie, Georgia, sans-serif;
 }
 
 .button:hover {
-	border: 1px solid #004170;
+	border: 1px solid #000;
 	background: #FFF;
+	color: #000;
 }
 
 #nav {
@@ -77,17 +78,24 @@ blockquote {
 #hd h1 {
 	font-size: 5em;
 	font-family: Reenie Beanie, Georgia, sans-serif;
+	transform: rotate(-5deg);
+	-o-transform: rotate(-5deg);
 	-moz-transform: rotate(-5deg);
 	-webkit-transform: rotate(-5deg);
 }
 
 #hd h2 {
 	margin: -1em 0 0 3em;
+	-o-transform: rotate(-5deg);
 	-moz-transform: rotate(-5deg);
 	-webkit-transform: rotate(-5deg);
 }
 
 #bd { }
+
+.squeallist {
+	min-height: 60em;
+}
 
 .squeallist li {
 	border-left: 10px solid #DDD;
@@ -113,6 +121,8 @@ h3 {
 	color: #FFF;
 	padding: .1em .2em;
 	margin: 0 0 .5em -2em;
+	transform: rotate(-5deg);
+	-o-transform: rotate(-5deg);
 	-moz-transform: rotate(-5deg);
 	-webkit-transform: rotate(-5deg);
 }
@@ -154,4 +164,55 @@ h3 {
 
 .signup {
 	padding-top: 5em;
+}
+
+.squeal-login {
+	text-align: center;
+	z-index: -1;
+}
+
+.squeal-login input[type=text], .squeal-login input[type=password] {
+	border: 2px solid #AAA;
+	padding: .2em .5em;
+	font-family: Georgia, sans-serif;
+	font-size: 1.2em;
+	display: inline-block;
+	margin-bottom: .5em;
+}
+
+.squeal-login label {
+	width: 6em;
+	display: inline-block;
+	font-weight: bold;
+}
+
+.squeal-login .errorlist {
+	font-family: Georgia, sans-serif;
+	font-size: 1.2em;
+	margin-bottom: 1em;
+	color: maroon;
+	font-weight: bold;
+}
+
+.card {
+	margin: 0 auto;
+	padding: 2em 1em;
+	width: 20em;
+	border: 5px solid #000;
+	transform: rotate(-5deg);
+	-o-transform: rotate(-5deg);
+	-moz-transform: rotate(5deg);
+	-webkit-transform: rotate(5deg);
+}
+
+.squeal-login h3 {
+	font-size: 3em;
+	display: inline-block;	
+	margin: 0 0 0 -5em;
+	padding-bottom: .2em;
+	z-index: 10;
+}
+
+.actionlist {
+	margin: 1em 0;
 }
