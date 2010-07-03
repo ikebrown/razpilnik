@@ -1,0 +1,9 @@
+Here's your activation link for the account you registered at Razpilnik!
+
+{{ site.url }}/activate/{{activation_key}}
+
+If it doesn't work try entering this activation code:
+
+{{activation_key}}
+
+This key will be valid only for {{expiration_days}} days

@@ -1,0 +1,15 @@
+{% extends "registration/login.html" %}
+
+{% block body %}
+<div class="squeal-login">
+<h3>Oh noes!</h3>
+<div class="card">
+You messed up! This activation link is not valid.
+<ul class="actionlist">
+  <li><a href="{% url django.contrib.auth.views.login %}">Go to the login page</a></li>
+  <li>or</li>
+  <li><a href="{% url squeal.views.index %}">Go to the front page</a></li>
+</ul>
+</div>
+</div>
+{% endblock %}
