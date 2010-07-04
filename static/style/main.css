@@ -97,15 +97,23 @@ blockquote {
 	min-height: 60em;
 }
 
-.squeallist li {
+.squeallist .errorlist {
+	color: maroon;
+	font-family: Georgia;
+	font-size: 1.1em;
+	font-weight: bold;
+	margin: .5em 0;
+}
+
+.squeallist ol li {
 	border-left: 10px solid #DDD;
 }
 
-.squeallist li:hover, .squeallist li:first-child {
+.squeallist ol li:hover, .squeallist ol li:first-child {
 	border-left: 10px solid #AAA;
 }
 
-.squeallist li {
+.squeallist ol li {
 	display: block;
 	clear: both;
 	padding: 1em .5em;
@@ -215,4 +223,42 @@ h3 {
 
 .actionlist {
 	margin: 1em 0;
+}
+
+.post-squeal {
+	width: 37em;
+}
+
+.post-squeal .button-wrap{
+	text-align: right;
+}
+
+.post-squeal .button {
+	margin-top: .5em;
+	border-radius: 8px;
+	-moz-border-radius: 8px;
+	box-shadow: 1px 1px 1px #000;
+	-moz-box-shadow: 1px 1px 1px #000;
+	-webkit-box-shadow: 1px 1px 1px #000;
+}
+
+.post-squeal textarea {
+	width: 30em;
+	height: 5em;
+	padding: .25em .5em;
+	font-family: Georgia, sans-serif;
+	font-size: 1.2em;
+	color: #333;
+	display: block;
+	border: 1px solid #AAA;
+	border-radius: 8px;
+	-moz-border-radius: 8px;
+	box-shadow: 1px 1px 1px #666;
+	-moz-box-shadow: 1px 1px 1px #666;
+	-webkit-box-shadow: 1px 1px 1px #666;
+	outline: 0;
+}
+
+.post-squeal textarea:focus {
+	
 }

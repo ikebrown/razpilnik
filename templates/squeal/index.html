@@ -23,30 +23,32 @@
 </div>
 
 <div id="doc2">
+      {% block head %}
 	<div id="hd">
 	  <a href="/">
 		<h1>Razpilnik!</h1>
 		<h2>squeal da roost!</h2>
 	  </a>
 	</div>
-{{ site.url }}
+      {% endblock %}
       <div id="bd" class="yui-gc">
-	{% block body %} 
+	{% block body %}
 	 {% block squeallist %}
 	 <div class="squeallist yui-u first">
+		 {% block post-squeal %}{% endblock %}
 		 {% block squeallist-title %}<h3>Latest squeals:</h3>{% endblock %}
 		 <ol>
 		 {% for squeal in squeals %}
 			  <li class="squeal">
 				<div class="user">
-					<a href="{% url squeal.views.squealer squeal.author.username %}">
+					<a href="{% url squeal.views.squealer squeal.author.user.username %}">
 					<img class="avatar" height="64px" width="64px" src="/static/images/rooster-small.png">
-					{{ squeal.author.username }}
+					{{ squeal.author.user.username }}
 					</a>
 				</div>
 				<div class="content">
 				   <span>{{ squeal.content }}</span>
-				   <span class="date">{{ squeal.pub_date|naturalday }}</em>
+				   <a class="date" href="{% url squeal.views.squeal squeal.author.user.username squeal.id %}">{{ squeal.pub_date|naturalday }}</a>
 				</div>
 			 </li>
 		 {% empty %}
@@ -66,7 +68,7 @@
 			  <li class="squealer">
 			      <a title="{{ squealer.user.username }}" href="{% url squeal.views.squealer squealer.user.username %}">
 			      <img class="avatar" height="32px" width="32px" src="/static/images/rooster-small.png">
-				{{ squeal.author.username }}
+				{{ squeal.author.user.username }}
 			      </a>
 			 </li>
 		 {% endfor %}

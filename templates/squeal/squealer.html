@@ -3,10 +3,29 @@
 {% block title %} {{ squealer.user.username }}'s squeals - {{ block.super }} {% endblock %}
 {% block squeallist-title %}<h3>{{ squealer.user.username }} says:</h3>{% endblock %}
 
+
+{% block post-squeal %}
+  {% if squealer.user.username == user.username %}
+  <form action="" class="post-squeal" method="post">
+    <h3>What's on your mind?</h3>
+    {% csrf_token %}
+    {{ form.content.errors }}
+    {{ form.content }}
+    <div class="button-wrap">
+    <input class="button" type="submit" value="squeal it!">
+    </div>
+  </form>
+  {% endif %}
+{% endblock %}
+
 {% block userinfo %} 
   <h3>{{ squealer.user.username }}</h3>
   <img class="avatar" src="/static/images/rooster.png" >
+  {% if user.username != squealer.user.username %}
   <h3><a href="">+ Follow</a></h3>
+  {% else %}
+  <h3>+ This is you</h3>
+  {% endif %}
   <ul class="userinfo">
     <li><strong>Name:</strong> {{ squealer.first_name }} {{ squealer.last_name }} </li>
     <li><strong>Location:</strong> {{ squealer.location }}</li>

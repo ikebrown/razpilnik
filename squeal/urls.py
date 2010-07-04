@@ -6,5 +6,6 @@ urlpatterns = patterns('razpilnik.squeal.views',
       (r'^$', 'index'),
       (r'^home/$', 'home'),
       (r'^(?P<squealer>\w+)/$', 'squealer'),
+      (r'^(?P<squealer>\w+)/squeal/(?P<squeal_id>\d+)/$', 'squeal'),
       (r'^(?P<squealer>\w+)/settings/$', 'settings')
 )

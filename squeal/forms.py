@@ -1,8 +1,9 @@
-from django.forms import ModelForm
-from models import Squealer
+from django import forms
+from models import *
 
-
-class SquealerForm(ModelForm):
+class SquealForm(forms.Form):
+  content = forms.CharField(max_length=140, widget=forms.Textarea)
+class SquealerForm(forms.ModelForm):
   class Meta:
     model = Squealer
     fields = ('location', 'bio', 'website', 'followers')
