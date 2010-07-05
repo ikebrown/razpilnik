@@ -17,6 +17,7 @@ a {
 }
 
 a:hover {
+	text-decoration: underline;
 	color: #004170;
 }
 
@@ -105,6 +106,11 @@ blockquote {
 	margin: .5em 0;
 }
 
+.squeal.owned {
+	background: #EEE;
+	border-bottom: 1px solid #AAA;
+}
+
 .squeallist ol li {
 	border-left: 10px solid #DDD;
 }
@@ -156,10 +162,78 @@ h3 {
 	padding: .5em 1em 0 1em;
 }
 
+.squeal .actionbar {
+	margin-top: 6em;
+	text-align: right;
+	width: 100%;
+}
+
+.squeal .actionbar * {
+	display: none !important;
+}
+
+.squeal:hover .actionbar * {
+	display: inherit !important;
+}
+
+.squeal .actionbar .delete {
+	color: maroon;
+	border: 0;
+	background: none;
+	display: inline;
+	cursor: pointer;
+	font-weight: bold;
+}
+
+.squeal .actionbar .delete:hover {
+	text-decoration: underline;
+}
+
 .squeal .date {
 	display: block;
 	color: #888;
-	
+}
+
+.squeal .infobar .date:hover, .squeal .infobar .delete:hover {
+	color: #000;
+}
+
+.squeal.large {
+	width: 40em;
+	padding: 2em;
+	border: 1px solid #AAA;
+	box-shadow: 1px 1px 1px #000;
+	border-radius: 8px;
+	-moz-border-radius: 8px;
+	-moz-box-shadow: 1px 1px 1px #000;
+	-webkit-box-shadow: 1px 1px 1px #000;
+}
+
+.squeal.large .content {
+	padding: 0;
+	float: none;
+	font-family: Georgia, sans-serif;
+	font-size: 2.6em;
+}
+
+.squeal.large .content .date {
+	font-size: .5em;
+}
+
+.squeal.large .author {
+	margin-top: 1em;
+	padding: 1em 0;
+	border-top: 1px solid #AAA;
+	font-size: 1.6em;
+}
+
+.squeal.large .user {
+	width: 5em;
+}
+
+.squeal.large .author .username {
+	font-weight: normal;
+	font-size: 1.5em;
 }
 
 .userlist {
@@ -234,6 +308,7 @@ h3 {
 }
 
 .post-squeal .button {
+	cursor: pointer;
 	margin-top: .5em;
 	border-radius: 8px;
 	-moz-border-radius: 8px;
@@ -261,4 +336,18 @@ h3 {
 
 .post-squeal textarea:focus {
 	
+}
+
+form.delete h1 {
+	font-size: 2.5em;
+	font-family: Georgia, sans-serif;
+}
+
+form.delete .confirm {
+	background-color: maroon;
+}
+
+form.delete .confirm:hover {
+	color: maroon;
+	background-color: #FFF;
 }

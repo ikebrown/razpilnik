@@ -1,0 +1,16 @@
+{% load humanize %}
+<div class="user">
+	<a href="{% url squeal.views.squealer squeal.author.user.username %}">
+	<img class="avatar" height="64px" width="64px" src="/static/images/rooster-small.png">
+	{{ squeal.author.user.username }}
+	</a>
+</div>
+<div class="content">
+   <span>{{ squeal.content }}</span>
+   <a title="{{ squeal.pub_date }}" class="date" href="{% url squeal.views.squeal squeal.author.user.username squeal.id %}">{{ squeal.pub_date|naturalday }}</a>
+</div>
+<div class="actionbar">
+  {% if squeal.author.user == user %}
+  <a class="delete" href="{% url squeal.views.squeal_delete squeal.author.user.username squeal.id %}">delete</a>
+  {% endif %}
+</div>

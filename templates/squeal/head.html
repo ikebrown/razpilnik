@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>{% block title %}Razpilnik! Squeal da roost!{% endblock %}</title>
+	<link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.8.1/build/reset-fonts-grids/reset-fonts-grids.css">
+	<link href="/static/style/main.css" rel="stylesheet" type="text/css" media="screen">
+</head>
+<body>
+<div id="nav">
+  <ul>
+    {% if user.is_authenticated %}
+    <li>Hello, {{ user.username }}</li>
+    <li><a href="">Profile</a></li>
+    <li><a href="{% url django.contrib.auth.views.logout %}">Logout</a></li>
+    {% else %}
+    <li>Hello, annonymous bird</li>
+    <li><a href="{% url registration.views.register %}">Register</a></li>
+     <li><a href="{% url django.contrib.auth.views.login %}">Login</a></li>
+    {% endif %}    
+  </ul>
+</div>
+
+<div id="doc2">
+      {% block head %}
+	<div id="hd">
+	  <a href="/">
+		<h1>Razpilnik!</h1>
+		<h2>squeal da roost!</h2>
+	  </a>
+	</div>
+      {% endblock %}

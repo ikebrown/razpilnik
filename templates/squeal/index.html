@@ -1,36 +1,4 @@
-{% load humanize %}
-<!DOCTYPE html>
-<html>
-<head>
-	<meta charset="utf-8">
-	<title>{% block title %}Razpilnik! Squeal da roost!{% endblock %}</title>
-	<link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.8.1/build/reset-fonts-grids/reset-fonts-grids.css">
-	<link href="/static/style/main.css" rel="stylesheet" type="text/css" media="screen">
-</head>
-<body>
-<div id="nav">
-  <ul>
-    {% if user.is_authenticated %}
-    <li>Hello, {{ user.username }}</li>
-    <li><a href="">Profile</a></li>
-    <li><a href="{% url django.contrib.auth.views.logout %}">Logout</a></li>
-    {% else %}
-    <li>Hello, annonymous bird</li>
-    <li><a href="{% url registration.views.register %}">Register</a></li>
-     <li><a href="{% url django.contrib.auth.views.login %}">Login</a></li>
-    {% endif %}    
-  </ul>
-</div>
-
-<div id="doc2">
-      {% block head %}
-	<div id="hd">
-	  <a href="/">
-		<h1>Razpilnik!</h1>
-		<h2>squeal da roost!</h2>
-	  </a>
-	</div>
-      {% endblock %}
+{% include "squeal/head.html" %}
       <div id="bd" class="yui-gc">
 	{% block body %}
 	 {% block squeallist %}
@@ -39,17 +7,8 @@
 		 {% block squeallist-title %}<h3>Latest squeals:</h3>{% endblock %}
 		 <ol>
 		 {% for squeal in squeals %}
-			  <li class="squeal">
-				<div class="user">
-					<a href="{% url squeal.views.squealer squeal.author.user.username %}">
-					<img class="avatar" height="64px" width="64px" src="/static/images/rooster-small.png">
-					{{ squeal.author.user.username }}
-					</a>
-				</div>
-				<div class="content">
-				   <span>{{ squeal.content }}</span>
-				   <a class="date" href="{% url squeal.views.squeal squeal.author.user.username squeal.id %}">{{ squeal.pub_date|naturalday }}</a>
-				</div>
+			  <li class="squeal {% if squeal.author.user == user %} owned {% endif %}">
+				{% include "squeal/squeal-snippet.html" %}
 			 </li>
 		 {% empty %}
 			The roost is silent. No squeals yet.
@@ -96,5 +55,4 @@
 	  {% endblock body %}
 	</div>
 </div>
-</body>
-</html>
+{% include "squeal/foot.html" %}

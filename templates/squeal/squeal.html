@@ -1,0 +1,23 @@
+{% load humanize %}
+{% include "squeal/head.html" %}
+
+<div id="bd">
+	<div class="squeal large">
+	<div class="content">
+	   <span>{{ squeal.content }}</span>
+	   <a title="{{ squeal.pub_date }}" class="date" href="{% url squeal.views.squeal squeal.author.user.username squeal.id %}">{{ squeal.pub_date|naturalday }}</a>
+	</div>
+	<div class="author">
+		<div class="user">
+			<a href="{% url squeal.views.squealer squeal.author.user.username %}">
+			<img class="avatar" height="64px" width="64px" src="/static/images/rooster-small.png">
+			</a>
+		</div>
+		<div class="user-info">
+			<a href="{% url squeal.views.squealer squeal.author.user.username %}" class="username">{{ squeal.author.user.username }}</a>
+			<h4>{{ squeal.author.user.first_name }} {{ squeal.author.user.last_name }}</h4>
+		</div>
+	</div>
+</div>
+
+{% include "squeal/foot.html" %}

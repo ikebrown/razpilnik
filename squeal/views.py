@@ -13,14 +13,16 @@ def index(request):
  squeals = Squeal.objects.all()
  squealers = Squealer.objects.all()
  context = RequestContext(request, {"squeals": squeals, "squealers": squealers})
- if request.user.is_authenticated:
+ if request.user.is_authenticated():
    return redirect(home)
  else:
    return HttpResponse(template.render(context))
 
 def squeal(request, squealer, squeal_id):
   squeal = Squeal.objects.get(id=squeal_id)
-  return HttpResponse(str(squeal.id) + squeal.content)
+  template = loader.get_template('squeal/squeal.html')
+  context = RequestContext(request, { "squeal": squeal })
+  return HttpResponse(template.render(context))
 
 def squealer(request, squealer):
  template = loader.get_template('squeal/squealer.html')
@@ -31,12 +33,34 @@ def squealer(request, squealer):
   form = SquealForm(request.POST)
   context["form"] = form
  return HttpResponse(template.render(context))
+
+@login_required
+def squeal_delete(request, squealer, squeal_id):
+ if request.user.username != squealer: raise PermissionDenied
+ template = loader.get_template("squeal/squeal_delete.html")
+ squealer = Squealer.objects.get(user__username=squealer)
+ squeal = Squeal.objects.get(id=squeal_id)
+ if request.user != squeal.author.user: raise PermissionDenied
+ if request.method == "POST":
+  # User confirmed deletion
+  squeal.delete()
+  return redirect(home)
+ context = RequestContext(request, {"squealer": squealer, "squeal": squeal})
+ return HttpResponse(template.render(context))
+ #template = 
  
 @login_required
 def settings(request, squealer):
  if request.user.username != squealer: raise PermissionDenied
- squealer = get_object_or_404(Squealer, user__username=squealer)
- form = SquealerForm(request.POST, squealer)
+ squealer = Squealer.objects.get(user__username=squealer)
+ if request.method == "POST":
+  form = SquealerForm(request.POST, squealer)
+  if form.is_valid():
+   pass
+   # Save data
+ else:
+  form = SquealerForm(squealer)
+
  context = RequestContext(request, {"squealer": squealer, "form": form})
  template = loader.get_template('squeal/squealer_settings.html')
  return HttpResponse(template.render(context))
@@ -49,6 +73,8 @@ def home(request):
     if form.is_valid():
       newsqueal = Squeal(content=form.cleaned_data["content"], author=squealer)
       newsqueal.save()
+      # Reset form
+      form = SquealForm()
   else:
     form = SquealForm()
 
