@@ -1,6 +1,6 @@
 Here's your activation link for the account you registered at Razpilnik!
 
-{{ site.url }}/activate/{{activation_key}}
+{{ site.url }}/accounts/activate/{{activation_key}}
 
 If it doesn't work try entering this activation code:
 
