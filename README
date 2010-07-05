@@ -1,5 +1,6 @@
 === Razpilnik ===
 A simple twitter clone built using Django 1.2
+Uses django.contrib.auth and django-registration for user management
 
 Liudmil Mitev
 liudmil.mitev@gmail.com
