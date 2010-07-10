@@ -3,6 +3,7 @@ from django.template import RequestContext, loader
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, redirect
 from django.core.exceptions import PermissionDenied
+from django.core.urlresolvers import reverse
 from django.db.models import F, Q
 
 from models import *
@@ -27,8 +28,9 @@ def squeal(request, squealer, squeal_id):
 def squealer(request, squealer):
  template = loader.get_template('squeal/squealer.html')
  squealer = Squealer.objects.get(user__username=squealer)
+ followers = Squealer.objects.filter(following=squealer)
  squeals = Squeal.objects.filter(author=squealer)
- context = RequestContext(request, {"squealer": squealer, "squeals": squeals})
+ context = RequestContext(request, {"squealer": squealer, "squeals": squeals, "followers": followers})
  if squealer.user == request.user:
   form = SquealForm(request.POST)
   context["form"] = form
@@ -47,7 +49,21 @@ def squeal_delete(request, squealer, squeal_id):
   return redirect(home)
  context = RequestContext(request, {"squealer": squealer, "squeal": squeal})
  return HttpResponse(template.render(context))
- #template = 
+
+@login_required
+def follow(request, to_follow):
+ to_follow = Squealer.objects.get(user__username=to_follow)
+ follower = Squealer.objects.get(user=request.user)
+ followers = Squealer.objects.filter(following=to_follow)
+ squeals = Squeal.objects.filter(author=to_follow)
+ template = loader.get_template("squeal/follow.html")
+ if to_follow in follower.following.all():
+  return redirect('razpilnik.squeal.views.squealer', squealer=to_follow.user.username)
+ if request.method == "POST":
+  follower.following.add(to_follow)
+  return redirect('razpilnik.squeal.views.squealer', squealer=to_follow.user.username)
+ context = RequestContext(request, {"squealer": to_follow, "squeals": squeals, "followers": followers})
+ return HttpResponse(template.render(context))
  
 @login_required
 def settings(request, squealer):

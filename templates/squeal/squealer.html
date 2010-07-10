@@ -22,7 +22,11 @@
   <h3>{{ squealer.user.username }}</h3>
   <img class="avatar" src="/static/images/rooster.png" >
   {% if user.username != squealer.user.username %}
-  <h3><a href="">+ Follow</a></h3>
+  {% if user.get_profile not in followers.all %}
+  <h3><a href="{% url squeal.views.follow squealer.user.username %}">+ Follow</a></h3>
+  {% else %}
+  <h3><a href="{% url squeal.views.follow squealer.user.username %}">+ Stop following</a></h3>
+  {% endif %}
   {% else %}
   <h3>+ This is you</h3>
   {% endif %}
@@ -40,7 +44,7 @@
 {% block userlist %}
 <h3>Followers</h3>
 <ol>
-{% for follower in squealer.followers.all %}
+{% for follower in followers.all %}
  <li>{{ follower.user.username }}</li>
 {% endfor %}
 </ol>
@@ -50,6 +54,4 @@
  <li>{{ following.user.username }}</li>
 {% endfor %}
 {% endblock %}
-
-
 

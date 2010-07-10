@@ -127,6 +127,11 @@ blockquote {
 	width: 40em;
 }
 
+h1 {
+	font-size: 2.5em;
+	font-family: Georgia, sans-serif;
+}
+
 h3 {
 	display: inline-block;
 	font-size: 1.3em;
@@ -160,6 +165,9 @@ h3 {
 	float: left;
 	width: 30em;
 	padding: .5em 1em 0 1em;
+}
+.squeal .content span{
+	word-wrap: break-word;
 }
 
 .squeal .actionbar {
@@ -211,6 +219,7 @@ h3 {
 
 .squeal.large .content {
 	padding: 0;
+	width: auto;
 	float: none;
 	font-family: Georgia, sans-serif;
 	font-size: 2.6em;
@@ -338,16 +347,11 @@ h3 {
 	
 }
 
-form.delete h1 {
-	font-size: 2.5em;
-	font-family: Georgia, sans-serif;
-}
-
-form.delete .confirm {
+form .confirm {
 	background-color: maroon;
 }
 
-form.delete .confirm:hover {
+form .confirm:hover {
 	color: maroon;
 	background-color: #FFF;
 }
