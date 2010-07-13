@@ -1,3 +1,19 @@
-Hello, {{ squealer }}
+{% extends "squeal/index.html" %}
 
+{% block body %}
+<div class="squeal-login">
+<form action="" method="post" enctype="multipart/form-data">
+<h3>Hello, {{ squealer }}</h3>
+<p>Edit your settings</p>
+<br>
+<img class="avatar" src="/static/{{ squealer.avatar|default:"/images/rooster.png" }}" >
+{% csrf_token %}
 {{ form.as_p }}
+<a href="{% url django.contrib.auth.views.password_change %}">Want to change your password ?</a>
+<br>
+<input class="button" type="submit" value="Heat !" />
+</form>
+</div>
+{% endblock body %}
+
+

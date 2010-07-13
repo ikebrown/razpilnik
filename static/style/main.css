@@ -40,7 +40,12 @@ blockquote {
 	padding: .2em .5em;
 	border: none;
 	font-size: 1.6em;
-	font-family: Reenie Beanie, Georgia, sans-serif;
+	font-family: Georgia, sans-serif;
+	border-radius: 8px;
+	-moz-border-radius: 8px;
+	box-shadow: 1px 1px 1px #000;
+	-moz-box-shadow: 1px 1px 1px #000;
+	-webkit-box-shadow: 1px 1px 1px #000;
 }
 
 .button:hover {
@@ -69,16 +74,27 @@ blockquote {
 }
 
 #hd {
-	margin-bottom: 6em;
+	
+	margin: 0 0 6em 0;
+	width: 12em;
 }
 
 #hd a {
+	outline: none;
+	text-decoration: none;
 	color: #000;
+}
+
+#hd a:hover h1 {
+	color: #FFF;
+	z-index: 100;
+	text-shadow: 0px 0px 6px #000;
 }
 
 #hd h1 {
 	font-size: 5em;
 	font-family: Reenie Beanie, Georgia, sans-serif;
+	sdisplay: inline;
 	transform: rotate(-5deg);
 	-o-transform: rotate(-5deg);
 	-moz-transform: rotate(-5deg);
@@ -153,7 +169,7 @@ h3 {
 }
 
 .avatar {
-	display: block;
+	display: inline-block;
 	border-radius: 8px;
 	-moz-border-radius: 8px;
 	box-shadow: 1px 1px 1px #666;
@@ -262,7 +278,7 @@ h3 {
 	z-index: -1;
 }
 
-.squeal-login input[type=text], .squeal-login input[type=password] {
+.squeal-login input[type=text], .squeal-login input[type=password], .squeal-login input[type=file]{
 	border: 2px solid #AAA;
 	padding: .2em .5em;
 	font-family: Georgia, sans-serif;

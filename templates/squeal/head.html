@@ -11,7 +11,7 @@
   <ul>
     {% if user.is_authenticated %}
     <li>Hello, {{ user.username }}</li>
-    <li><a href="">Profile</a></li>
+    <li><a href="{% url squeal.views.settings %}">Profile</a></li>
     <li><a href="{% url django.contrib.auth.views.logout %}">Logout</a></li>
     {% else %}
     <li>Hello, annonymous bird</li>

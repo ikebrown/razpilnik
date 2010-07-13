@@ -1,18 +1,20 @@
+# -*- coding: utf-8 -*-
 from django.http import HttpResponse, Http404
 from django.template import RequestContext, loader
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, redirect
 from django.core.exceptions import PermissionDenied
-from django.core.urlresolvers import reverse
 from django.db.models import F, Q
+from django.core.files.base import ContentFile
+from PIL import Image
 
 from models import *
 from forms import *
 
 def index(request):
  template = loader.get_template('squeal/index.html')
- squeals = Squeal.objects.all()
- squealers = Squealer.objects.all()
+ squeals = Squeal.objects.all()[:8]
+ squealers = Squealer.objects.all()[:24]
  context = RequestContext(request, {"squeals": squeals, "squealers": squealers})
  if request.user.is_authenticated():
    return redirect(home)
@@ -20,16 +22,17 @@ def index(request):
    return HttpResponse(template.render(context))
 
 def squeal(request, squealer, squeal_id):
-  squeal = Squeal.objects.get(id=squeal_id)
+  squealer = get_object_or_404(Squealer, user__username=squealer)
+  squeal = get_object_or_404(Squeal, id=squeal_id)
   template = loader.get_template('squeal/squeal.html')
   context = RequestContext(request, { "squeal": squeal })
   return HttpResponse(template.render(context))
 
 def squealer(request, squealer):
  template = loader.get_template('squeal/squealer.html')
- squealer = Squealer.objects.get(user__username=squealer)
+ squealer = get_object_or_404(Squealer, user__username=squealer)
  followers = Squealer.objects.filter(following=squealer)
- squeals = Squeal.objects.filter(author=squealer)
+ squeals = Squeal.objects.filter(author=squealer)[:8]
  context = RequestContext(request, {"squealer": squealer, "squeals": squeals, "followers": followers})
  if squealer.user == request.user:
   form = SquealForm(request.POST)
@@ -40,8 +43,8 @@ def squealer(request, squealer):
 def squeal_delete(request, squealer, squeal_id):
  if request.user.username != squealer: raise PermissionDenied
  template = loader.get_template("squeal/squeal_delete.html")
- squealer = Squealer.objects.get(user__username=squealer)
- squeal = Squeal.objects.get(id=squeal_id)
+ squealer = get_object_or_404(Squealer, user__username=squealer)
+ squeal = get_object_or_404(Squeal, id=squeal_id)
  if request.user != squeal.author.user: raise PermissionDenied
  if request.method == "POST":
   # User confirmed deletion
@@ -52,7 +55,7 @@ def squeal_delete(request, squealer, squeal_id):
 
 @login_required
 def follow(request, to_follow):
- to_follow = Squealer.objects.get(user__username=to_follow)
+ to_follow = get_object_or_404(Squealer, user__username=to_follow)
  follower = Squealer.objects.get(user=request.user)
  followers = Squealer.objects.filter(following=to_follow)
  squeals = Squeal.objects.filter(author=to_follow)
@@ -66,16 +69,29 @@ def follow(request, to_follow):
  return HttpResponse(template.render(context))
  
 @login_required
-def settings(request, squealer):
- if request.user.username != squealer: raise PermissionDenied
- squealer = Squealer.objects.get(user__username=squealer)
+def unfollow(request, to_follow):
+ to_follow = get_object_or_404(Squealer, user__username=to_follow)
+ follower = Squealer.objects.get(user=request.user)
+ followers = Squealer.objects.filter(following=to_follow)
+ squeals = Squeal.objects.filter(author=to_follow)
+ template = loader.get_template("squeal/unfollow.html")
+ if to_follow not in follower.following.all():
+  return redirect('razpilnik.squeal.views.squealer', squealer=to_follow.user.username)
  if request.method == "POST":
-  form = SquealerForm(request.POST, squealer)
+  follower.following.remove(to_follow)
+  return redirect('razpilnik.squeal.views.squealer', squealer=to_follow.user.username)
+ context = RequestContext(request, {"squealer": to_follow, "squeals": squeals, "followers": followers})
+ return HttpResponse(template.render(context))
+ 
+@login_required
+def settings(request):
+ squealer = request.user.get_profile()
+ if request.method == "POST":
+  form = SquealerForm(request.POST, request.FILES, instance=squealer)
   if form.is_valid():
-   pass
-   # Save data
+   squealer = form.save()
  else:
-  form = SquealerForm(squealer)
+  form = SquealerForm(instance=squealer)
 
  context = RequestContext(request, {"squealer": squealer, "form": form})
  template = loader.get_template('squeal/squealer_settings.html')

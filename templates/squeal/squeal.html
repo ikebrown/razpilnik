@@ -10,7 +10,7 @@
 	<div class="author">
 		<div class="user">
 			<a href="{% url squeal.views.squealer squeal.author.user.username %}">
-			<img class="avatar" height="64px" width="64px" src="/static/images/rooster-small.png">
+			<img class="avatar" height="64px" width="64px"  src="/static/{{ squeal.author.avatar|default:'/images/rooster-small.png' }}">
 			</a>
 		</div>
 		<div class="user-info">

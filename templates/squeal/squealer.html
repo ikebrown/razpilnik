@@ -19,39 +19,55 @@
 {% endblock %}
 
 {% block userinfo %} 
-  <h3>{{ squealer.user.username }}</h3>
-  <img class="avatar" src="/static/images/rooster.png" >
+  <h3>{{ squealer.user.username }}</h3><br>
+  <img class="avatar" src="/static/{{ squealer.avatar|default:"/images/rooster.png" }}" ><br>
   {% if user.username != squealer.user.username %}
   {% if user.get_profile not in followers.all %}
   <h3><a href="{% url squeal.views.follow squealer.user.username %}">+ Follow</a></h3>
   {% else %}
-  <h3><a href="{% url squeal.views.follow squealer.user.username %}">+ Stop following</a></h3>
+  <h3><a href="{% url squeal.views.unfollow squealer.user.username %}">+ Stop following</a></h3>
   {% endif %}
   {% else %}
   <h3>+ This is you</h3>
   {% endif %}
   <ul class="userinfo">
-    <li><strong>Name:</strong> {{ squealer.first_name }} {{ squealer.last_name }} </li>
+    <li><strong>Name:</strong> {{ squealer.user.first_name }} {{ squealer.user.last_name }} </li>
     <li><strong>Location:</strong> {{ squealer.location }}</li>
     <li><strong>Bio:</strong> {{ squealer.bio }}</li>
     <li><strong>Website:</strong> {{ squealer.website|urlizetrunc:15 }}</li>
-    <li><strong>Followers:</strong> {{ squealer.followers.count }}</li>
     <li><strong>Following:</strong> {{ squealer.following.count }}</li>
     <li><strong>Squeals:</strong> </li>
   </ul>
 {% endblock %}
 
 {% block userlist %}
-<h3>Followers</h3>
+
+<h3>Following</h3><br>
+<div class="userlist yui-u">
 <ol>
-{% for follower in followers.all %}
- <li>{{ follower.user.username }}</li>
+{% for squealer in squealer.following.all %}
+	<li class="squealer">
+	    <a title="{{ squealer.user.username }}" href="{% url squeal.views.squealer squealer.user.username %}">
+	    <img class="avatar" height="32px" width="32px" src="/static/{{ squealer.avatar|default:"/images/rooster.png" }}">
+	      {{ squeal.author.user.username }}
+	    </a>
+	</li>
 {% endfor %}
 </ol>
+</div>
 
-<h3>Following</h3>
-{% for following in squealer.following.all %}
- <li>{{ following.user.username }}</li>
+<h3>Followers</h3><br>
+<div class="userlist yui-u">
+<ol>
+{% for squealer in followers.all %}
+	<li class="squealer">
+	    <a title="{{ squealer.user.username }}" href="{% url squeal.views.squealer squealer.user.username %}">
+	    <img class="avatar" height="32px" width="32px" src="/static/{{ squealer.avatar|default:"/images/rooster.png" }}">
+	      {{ squeal.author.user.username }}
+	    </a>
+	</li>
 {% endfor %}
-{% endblock %}
+</ol>
+</div>
 
+{% endblock %}
