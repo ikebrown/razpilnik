@@ -1,3 +1,14 @@
 {% extends "squeal/squealer.html" %}
 {% block title %} Home - {{ block.super }} {% endblock %}
+
+
+{% block paginator %}
+  {% if squeals.has_previous %}
+      <a class="button" href="{% url squeal.views.home squeals.previous_page_number %}">&laquo; This way</a>
+  {% endif %}
+
+  {% if squeals.has_next %}
+      <a class="button" href="{% url squeal.views.home squeals.next_page_number %}">That way &raquo;</a>
+  {% endif %}
+{% endblock paginator %}
 {% block squeallist-title %}<h3>Home</h3>{% endblock %}

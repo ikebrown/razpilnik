@@ -6,16 +6,22 @@ from django.shortcuts import get_object_or_404, redirect
 from django.core.exceptions import PermissionDenied
 from django.db.models import F, Q
 from django.core.files.base import ContentFile
+from django.core.paginator import Paginator, InvalidPage, EmptyPage
 from PIL import Image
 
 from models import *
 from forms import *
 
-def index(request):
+def index(request, page=1):
  template = loader.get_template('squeal/index.html')
- squeals = Squeal.objects.all()[:8]
+ paginator = Paginator(Squeal.objects.all(), 8)
+ try:
+  squeals = paginator.page(page)
+ except (EmptyPage, InvalidPage):
+  squeals = paginator.page(paginator.num_pages)
+
  squealers = Squealer.objects.all()[:24]
- context = RequestContext(request, {"squeals": squeals, "squealers": squealers})
+ context = RequestContext(request, {"squeals": squeals, "squealers": squealers, "page": page})
  if request.user.is_authenticated():
    return redirect(home)
  else:
@@ -28,12 +34,18 @@ def squeal(request, squealer, squeal_id):
   context = RequestContext(request, { "squeal": squeal })
   return HttpResponse(template.render(context))
 
-def squealer(request, squealer):
+def squealer(request, squealer, page=1):
  template = loader.get_template('squeal/squealer.html')
  squealer = get_object_or_404(Squealer, user__username=squealer)
  followers = Squealer.objects.filter(following=squealer)
- squeals = Squeal.objects.filter(author=squealer)[:8]
- context = RequestContext(request, {"squealer": squealer, "squeals": squeals, "followers": followers})
+ squeals = Squeal.objects.filter(author=squealer)
+ paginator = Paginator(squeals, 8)
+ try:
+  squeals = paginator.page(page)
+ except (EmptyPage, InvalidPage):
+  squeals = paginator.page(paginator.num_pages)
+
+ context = RequestContext(request, {"squealer": squealer, "squeals": squeals, "followers": followers, "page": page})
  if squealer.user == request.user:
   form = SquealForm(request.POST)
   context["form"] = form
@@ -98,20 +110,26 @@ def settings(request):
  return HttpResponse(template.render(context))
 
 @login_required
-def home(request):
-  squealer = Squealer.objects.get(user=request.user)
-  if request.method == "POST":
-    form = SquealForm(request.POST)
-    if form.is_valid():
-      newsqueal = Squeal(content=form.cleaned_data["content"], author=squealer)
-      newsqueal.save()
-      # Reset form
-      form = SquealForm()
-  else:
-    form = SquealForm()
+def home(request, page=1):
+ squealer = Squealer.objects.get(user=request.user)
+ if request.method == "POST":
+   form = SquealForm(request.POST)
+   if form.is_valid():
+     newsqueal = Squeal(content=form.cleaned_data["content"], author=squealer)
+     newsqueal.save()
+     # Reset form
+     form = SquealForm()
+ else:
+   form = SquealForm()
 
-  template = loader.get_template('squeal/home.html')
-  followers = Squealer.objects.filter(following=squealer)
-  squeals = Squeal.objects.filter(Q(author__in=squealer.following.all()) | Q(author=squealer))
-  context = RequestContext(request, {"squealer": squealer, "followers": followers, "squeals": squeals, "form": form})
-  return HttpResponse(template.render(context)) 
+ template = loader.get_template('squeal/home.html')
+ followers = Squealer.objects.filter(following=squealer)
+ squeals = Squeal.objects.filter(author__in=squealer.following.all()) | Squeal.objects.filter(author=squealer)
+ paginator = Paginator(squeals, 8)
+ try:
+  squeals = paginator.page(page)
+ except (EmptyPage, InvalidPage):
+  squeals = paginator.page(paginator.num_pages)
+
+ context = RequestContext(request, {"squealer": squealer, "followers": followers, "squeals": squeals, "form": form})
+ return HttpResponse(template.render(context)) 

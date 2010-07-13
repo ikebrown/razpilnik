@@ -6,7 +6,7 @@
 		 {% block post-squeal %}{% endblock %}
 		 {% block squeallist-title %}<h3>Latest squeals:</h3>{% endblock %}
 		 <ol>
-		 {% for squeal in squeals %}
+		 {% for squeal in squeals.object_list %}
 			  <li class="squeal {% if squeal.author.user == user %} owned {% endif %}">
 				{% include "squeal/squeal-snippet.html" %}
 			 </li>
@@ -14,6 +14,15 @@
 			The roost is silent. No squeals yet.
 		 {% endfor %}
 		 </ol>
+		{% block paginator %}
+		  {% if squeals.has_previous %}
+		      <a class="button" href="{% url squeal.views.index squeals.previous_page_number %}">&laquo; This way</a>
+		  {% endif %}
+
+		  {% if squeals.has_next %}
+		      <a class="button" href="{% url squeal.views.index squeals.next_page_number %}">That way &raquo;</a>
+		  {% endif %}
+		{% endblock paginator %}
 	 </div>
 	  {% endblock %}
 
