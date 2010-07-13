@@ -18,6 +18,16 @@
   {% endif %}
 {% endblock %}
 
+{% block paginator %}
+  {% if squeals.has_previous %}
+      <a class="button" href="{% url squeal.views.squealer squealer.user.username squeals.previous_page_number %}">&laquo; This way</a>
+  {% endif %}
+
+  {% if squeals.has_next %}
+      <a class="button" href="{% url squeal.views.squealer squealer.user.username squeals.next_page_number %}">That way &raquo;</a>
+  {% endif %}
+{% endblock paginator %}
+
 {% block userinfo %} 
   <h3>{{ squealer.user.username }}</h3><br>
   <img class="avatar" src="/static/{{ squealer.avatar|default:"/images/rooster.png" }}" ><br>
@@ -38,6 +48,7 @@
     <li><strong>Following:</strong> {{ squealer.following.count }}</li>
     <li><strong>Squeals:</strong> </li>
   </ul>
+
 {% endblock %}
 
 {% block userlist %}
