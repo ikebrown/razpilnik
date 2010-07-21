@@ -10,7 +10,10 @@ class LatestSqueals(Feed):
   return Squeal.objects.order_by('-pub_date')[:20]
 
  def item_title(self, item):
-  return "#" + str(item.id) + " " + item.author.user.username + " said:"
+     title = item.author.user.username + " said: "
+     if len(item.content) > 64: title += item.content[:64] + "..."
+     else: title += item.content
+     return title
 
  def item_description(self, item):
   return item.content

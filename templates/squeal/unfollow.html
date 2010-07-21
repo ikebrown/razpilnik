@@ -1,0 +1,14 @@
+{% extends "squeal/squealer.html" %}
+{% block post-squeal %}
+  <form class="follow" action="" method="post">
+  {% csrf_token %}
+  {% if user.username == squealer.user.username %}
+    <h1>You can't unfollow yourself you narcissist!</h1>
+    <a class="button" href="javascript:history.back()">Okay...</a>
+  {% else %}
+    <h1>Do you really want to unfollow this guy ?</h1>
+    <p>Confirm it.</p>
+    <input class="button confirm" type="submit" value="Get me away from this guy!"> <a class="button" href="javascript:history.back()">What ?! NO!</a>
+  {% endif %}
+  </form>
+{% endblock %}
