@@ -1,18 +1,18 @@
 {% include "squeal/head.html" %}
-      <div id="bd" class="yui-gc">
-	{% block body %}
-	 {% block squeallist %}
-	 <div class="squeallist yui-u first">
-		 {% block post-squeal %}{% endblock %}
-		 {% block squeallist-title %}<h3>Latest squeals:</h3>{% endblock %}
-		 <ol>
-		 {% for squeal in squeals.object_list %}
-			  <li class="squeal {% if squeal.author.user == user %} owned {% endif %}">
-				{% include "squeal/squeal-snippet.html" %}
-			 </li>
-		 {% empty %}
-			The roost is silent. No squeals yet.
-		 {% endfor %}
+{% block body %}
+<div id="bd" class="yui3-g">
+ {% block squeallist %}
+  <div class="yui3-u-3-5 squeallist">
+   {% block post-squeal %}{% endblock %}
+   {% block squeallist-title %}<h3>Latest squeals:</h3>{% endblock %}
+   <ol>
+   {% for squeal in squeals.object_list %}
+        <li class="squeal {% if squeal.author.user == user %} owned {% endif %}">
+         {% include "squeal/squeal-snippet.html" %}
+		</li>
+		{% empty %}
+		 The roost is silent. No squeals yet.
+		{% endfor %}
 		 </ol>
 		{% block paginator %}
 		  {% if squeals.has_previous %}
@@ -23,13 +23,12 @@
 		      <a class="button" href="{% url squeal.views.index squeals.next_page_number %}">That way &raquo;</a>
 		  {% endif %}
 		{% endblock paginator %}
-	 </div>
-	  {% endblock %}
-
-	  {% block userinfo %} {% endblock %}
-
-	  {% block userlist %}
-	 <div class="userlist yui-u">
+    </div>
+    <div class="yui3-u-2-5 sidebar">
+	 {% endblock %}
+	 {% block userinfo %} {% endblock %}
+	 {% block userlist %}
+	 <div class="userlist">
 		<h3>Who's on Razpilnik!</h3>
 		 <ol>
 		 {% for squealer in squealers %}
@@ -60,8 +59,9 @@
 		</blockquote>
 	  </div>
 	    {% endblock %}
-	   {% endif %}
-	  {% endblock body %}
+        {% endif %}
+      </div>
 	</div>
+	{% endblock body %}
 </div>
 {% include "squeal/foot.html" %}

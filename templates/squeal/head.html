@@ -3,9 +3,15 @@
 <head>
 	<meta charset="utf-8">
 	<title>{% block title %}Razpilnik! Squeal da roost!{% endblock %}</title>
-	<link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.8.1/build/reset-fonts-grids/reset-fonts-grids.css">
-	<link href="/static/style/main.css" rel="stylesheet" type="text/css" media="screen">
+
+    <!-- YUI 3 Grids -->
+	<link rel="stylesheet" type="text/css" href="/static/style/yui/reset-min.css">
+	<link rel="stylesheet" type="text/css" href="/static/style/yui/fonts-min.css">
+    <link rel="stylesheet" type="text/css" href="/static/style/yui/grids-min.css">
+
+    <!-- Razpilnik Style -->
 	<link rel="alternate" type="application/rss+xml" title="Latest squeals" href="/feed/" />
+	<link href="/static/style/main.css" rel="stylesheet" type="text/css" media="screen">
 </head>
 <body>
 <div id="nav">
@@ -17,17 +23,17 @@
     {% else %}
     <li>Hello, annonymous bird</li>
     <li><a href="{% url registration.views.register %}">Register</a></li>
-     <li><a href="{% url django.contrib.auth.views.login %}">Login</a></li>
+    <li><a href="{% url django.contrib.auth.views.login %}">Login</a></li>
     {% endif %}    
   </ul>
 </div>
 
-<div id="doc2">
-      {% block head %}
+<div id="doc">
+    {% block head %}
 	<div id="hd">
 	  <a href="/">
 		<h1>Razpilnik!</h1>
 		<h2>squeal da roost!</h2>
 	  </a>
 	</div>
-      {% endblock %}
+    {% endblock %}
